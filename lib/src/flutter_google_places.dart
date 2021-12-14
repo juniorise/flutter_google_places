@@ -28,6 +28,8 @@ class PlacesAutocompleteWidget extends StatefulWidget {
   final ValueChanged<PlacesAutocompleteResponse>? onError;
   final int debounce;
   final InputDecoration? decoration;
+  final TextStyle? textStyle;
+  final StrutStyle? strutStyle;
 
   /// optional - sets 'proxy' value in google_maps_webservice
   ///
@@ -64,6 +66,8 @@ class PlacesAutocompleteWidget extends StatefulWidget {
     this.startText,
     this.debounce = 300,
     this.decoration,
+    this.textStyle,
+    this.strutStyle,
   }) : super(key: key);
 
   @override
@@ -82,6 +86,8 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
           appBar: AppBar(
             title: AppBarPlacesAutoCompleteTextField(
               textDecoration: widget.decoration,
+              textStyle: widget.textStyle,
+              strutStyle: widget.strutStyle,
             ),
           ),
           body: PlacesAutocompleteResult(
@@ -261,9 +267,10 @@ class _PlacesAutocompleteResult extends State<PlacesAutocompleteResult> {
 class AppBarPlacesAutoCompleteTextField extends StatefulWidget {
   final InputDecoration? textDecoration;
   final TextStyle? textStyle;
+  final StrutStyle? strutStyle;
 
   const AppBarPlacesAutoCompleteTextField(
-      {Key? key, this.textDecoration, this.textStyle})
+      {Key? key, this.textDecoration, this.textStyle, this.strutStyle})
       : super(key: key);
 
   @override
@@ -510,6 +517,8 @@ class PlacesAutocomplete {
     Client? httpClient,
     InputDecoration? decoration,
     String startText = "",
+    TextStyle? textStyle ,
+    StrutStyle? strutStyle ,
   }) {
     builder(BuildContext ctx) => PlacesAutocompleteWidget(
           apiKey: apiKey,
@@ -531,6 +540,8 @@ class PlacesAutocomplete {
           httpClient: httpClient as BaseClient?,
           startText: startText,
           decoration: decoration,
+          textStyle: textStyle,
+          strutStyle: strutStyle,
         );
 
     if (mode == Mode.overlay) {
